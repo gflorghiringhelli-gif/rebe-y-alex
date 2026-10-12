@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+   <title>Rebe & Alex · Nuestra Boda</title>
+   
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&family=Montserrat:wght@300;400;500;600&family=Pinyon+Script&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+   
+   <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+   <div id="toast" class="toast">¡Información copiada! 📋✨</div>
+
+   <canvas id="petalsCanvas"></canvas>
+
+   <audio id="musicaInvitacion" preload="auto" loop>
+      <source src="img/musica.mp3" type="audio/mpeg">
+   </audio>
+
+   <div id="music-toggle" class="music-btn" onclick="toggleMusic()">
+       <i class="fa-solid fa-music"></i>
+   </div>
+   
+   <!-- INTRO: SOBRE ESTÁTICO -->
+   <div id="contenedor-principal" onclick="activarInvitacion()">
+       <img src="img/sobre.png" alt="Sobre" id="imgSobreEstetica">
+       <video id="videoSobre" playsinline muted preload="auto">
+           <source src="img/1.mp4" type="video/mp4">
+       </video>
+       <div id="capa-boton">
+           <div class="boton-rosa-inicio" id="btn-toca-abrir">TOCÁ EL SOBRE PARA ABRIR</div>
+       </div>
+   </div>
+
+   <!-- INVITACIÓN WEB EDITORIAL -->
+   <div id="seccion-final" class="oculto">
+
+       <!-- PORTADA EN MARCO DE ARCO CON FRASE -->
+       <header class="hero-section-arch reveal">
+           <div class="arch-photo-card">
+               <div class="arch-image-wrap">
+                   <img src="img/portada.png" onerror="this.src='https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1000&q=80'" alt="Rebe y Alex" class="portada-img-arch">
+                   <div class="arch-overlay-gradient"></div>
+                   <div class="arch-names-box">
+                       <h1 class="arch-couple-names">Rebe & Alex</h1>
+                       <div class="arch-divider-line"></div>
+                       <p class="arch-quote-cover">“El amor es paciente y bondadoso. Con fe en Dios, unimos nuestras vidas en matrimonio.”</p>
+                   </div>
+               </div>
+           </div>
+       </header>
+
+       <!-- SECCIONES CON EL FONDO REPETIDO (fondo.png) -->
+       <div class="bloque-patron-fondo">
+           
+           <!-- 1. MENSAJE DE INVITACIÓN -->
+           <section class="section-pad reveal">
+               <div class="invitarte-card">
+                   <p class="invite-quote">
+                       Con inmensa alegría en nuestros corazones y agradecidos a Dios por habernos unido en amor, queremos compartir contigo este momento tan especial.<br><br>
+                       Nos casamos, y deseamos que seas parte de nuestra celebración de fe, esperanza y amor eterno.<br><br>
+                       <em>“Lo que Dios ha unido, que no lo separe el hombre” (Mateo 19:6).</em>
+                   </p>
+               </div>
+           </section>
+
+           <!-- 2. SAVE THE DATE (CON REVELACIÓN Y DATOS DEBAJO) -->
+           <section class="section-pad reveal text-center" id="std-section">
+               <h2 class="editorial-heading mt-10">SAVE THE DATE</h2>
+               <p class="section-sub-label">Raspá o tocá cada círculo para descubrir la fecha</p>
+
+               <div class="scratch-circles-wrapper mt-25" id="circlesWrapper">
+                   <div class="circle-scratch-card" onclick="revelarCirculo(this, 0)">
+                       <div class="circle-reveal-content">
+                           <span class="circle-number">02</span>
+                           <span class="circle-label">DÍA</span>
+                       </div>
+                       <div class="circle-overlay-tap" id="tap-0"><span>TOCÁ</span></div>
+                   </div>
+                   <div class="circle-scratch-card" onclick="revelarCirculo(this, 1)">
+                       <div class="circle-reveal-content">
+                           <span class="circle-number">01</span>
+                           <span class="circle-label">MES</span>
+                       </div>
+                       <div class="circle-overlay-tap" id="tap-1"><span>TOCÁ</span></div>
+                   </div>
+                   <div class="circle-scratch-card" onclick="revelarCirculo(this, 2)">
+                       <div class="circle-reveal-content">
+                           <span class="circle-number">2027</span>
+                           <span class="circle-label">AÑO</span>
+                       </div>
+                       <div class="circle-overlay-tap" id="tap-2"><span>TOCÁ</span></div>
+                   </div>
+               </div>
+
+               <div class="std-revealed-info" id="stdRevealedInfo">
+                   <h3 class="revealed-names">Rebe & Alex</h3>
+                   <p class="revealed-date-text">02 · Enero · 2027</p>
+               </div>
+           </section>
+
+           <!-- 3. CRONOGRAMA & UBICACIONES UNIFICADAS -->
+           <section class="section-pad location-section-spacious reveal">
+               <h2 class="editorial-heading">CRONOGRAMA & UBICACIÓN</h2>
+               <p class="title-sub-cursive">Nuestra celebración paso a paso</p>
+
+               <div class="timeline-container mt-25">
+                   <div class="timeline-item">
+                       <div class="timeline-icon"><i class="fa-solid fa-ring"></i></div>
+                       <div class="timeline-content">
+                           <h3>Ceremonia Civil</h3>
+                           <p class="t-date">02 de enero de 2027 — 18:00 HS</p>
+                           <p class="t-place">Iglesia Hermanos Menonitas de Tacuara</p>
+                       </div>
+                   </div>
+
+                   <div class="timeline-item">
+                       <div class="timeline-icon"><i class="fa-solid fa-church"></i></div>
+                       <div class="timeline-content">
+                           <h3>Ceremonia Religiosa</h3>
+                           <p class="t-date">02 de enero de 2027 — 19:00 HS</p>
+                           <p class="t-place">Iglesia Hermanos Menonitas de Tacuara</p>
+                       </div>
+                   </div>
+
+                   <div class="timeline-item">
+                       <div class="timeline-icon"><i class="fa-solid fa-glass-cheers"></i></div>
+                       <div class="timeline-content">
+                           <h3>Recepción & Fiesta</h3>
+                           <p class="t-date">02 de enero de 2027 — 20:00 HS</p>
+                           <p class="t-place">Iglesia Hermanos Menonitas de Tacuara</p>
+                       </div>
+                   </div>
+               </div>
+
+               <div class="btn-group-maps mt-30">
+                   <a href="https://maps.app.goo.gl/fL5wa6aDs3rXz2BV6?g_st=ac" target="_blank" class="btn btn-map-action"><i class="fa-solid fa-location-dot"></i> Abrir en Google Maps</a>
+                   <a href="https://waze.com/ul?q=Iglesia%20Hermanos%20Menonitas%20de%20Tacuara" target="_blank" class="btn btn-map-action mt-10"><i class="fa-brands fa-waze"></i> Abrir en Waze</a>
+               </div>
+           </section>
+
+           <!-- 4. DRESS CODE CONTENEDOR LIMPIO -->
+           <section class="section-pad reveal">
+               <div class="dress-code-container-card text-center">
+                   <h2 class="editorial-heading dark-title mt-10">DRESS CODE</h2>
+                   <p class="title-sub-cursive dark-subtitle">Código de Vestimenta</p>
+
+                   <p class="dress-code-badge mt-10">SPORT ELEGANTE</p>
+
+                   <p class="dress-code-rule mt-15">
+                       Para chicas: <strong>Evitar el color blanco</strong> y <strong>evitar el color verde</strong>.
+                   </p>
+
+                   <div class="scratch-circles-wrapper mt-20 color-palette-wrapper">
+                       <div class="color-circle" style="background-color: #b07d86;" title="Cedar Rose"></div>
+                       <div class="color-circle" style="background-color: #b54a39;" title="Terracotta"></div>
+                       <div class="color-circle" style="background-color: #6e1d2c;" title="Burgundy"></div>
+                       <div class="color-circle" style="background-color: #cc6b36;" title="Paprika"></div>
+                   </div>
+               </div>
+           </section>
+
+           <!-- 5. SUGERENCIA DE REGALO INTERACTIVA (ACORDEÓN) -->
+           <section class="section-pad reveal">
+               <div class="gift-envelope-card-paper text-center">
+                   <div class="gift-icon-head mt-10"><i class="fa-solid fa-gift"></i></div>
+                   <h2 class="editorial-heading mt-10">SUGERENCIA DE REGALO</h2>
+                   <p class="title-sub-cursive">Un detalle con los novios</p>
+                   <p class="gift-text-paper mt-10">
+                       Su presencia es nuestro mejor regalo. Si desean hacernos un presente a través de transferencia bancaria, pueden consultar las cuentas aquí:
+                   </p>
+
+                   <button class="btn-accordion-toggle mt-20" onclick="toggleGiftAccordion(this)">
+                       <span>Ver datos bancarios</span>
+                       <i class="fa-solid fa-chevron-down"></i>
+                   </button>
+
+                   <div class="gift-accordion-content" id="giftAccordion">
+                       <div class="bank-account-box mt-15">
+                           <p><strong>Rebeca Antonella Arce Rodríguez</strong></p>
+                           <p class="bank-alias">Alias: 5066737</p>
+                           <button class="btn-copy-alias" onclick="copiarTexto('5066737')"><i class="fa-solid fa-copy"></i> Copiar Alias</button>
+                       </div>
+
+                       <div class="bank-account-box mt-15">
+                           <p><strong>Alexis Ramón Recalde</strong></p>
+                           <p class="bank-alias">Alias: 0976 144 481</p>
+                           <button class="btn-copy-alias" onclick="copiarTexto('0976 144 481')"><i class="fa-solid fa-copy"></i> Copiar Número</button>
+                       </div>
+                   </div>
+               </div>
+           </section>
+
+           <!-- 6. FAQ INTERACTIVO CON ICONOS LIMPIOS -->
+           <section class="section-pad reveal">
+               <div class="faq-card-paper text-center">
+                   <div class="gift-icon-head mt-10"><i class="fa-solid fa-circle-question"></i></div>
+                   <h2 class="editorial-heading mt-10">FAQ INTERACTIVO</h2>
+                   <p class="title-sub-cursive">Preguntas frecuentes</p>
+
+                   <div class="faq-accordion-item mt-15" onclick="toggleFaq(this)">
+                       <div class="faq-question-bar">
+                           <span><i class="fa-solid fa-users faq-ico-title"></i> ¿Evento en familia?</span>
+                           <i class="fa-solid fa-plus faq-icon"></i>
+                       </div>
+                       <div class="faq-answer-collapse">
+                           <p>Sí, el evento está pensado y preparado para celebrarse en familia.</p>
+                       </div>
+                   </div>
+
+                   <div class="faq-accordion-item mt-15" onclick="toggleFaq(this)">
+                       <div class="faq-question-bar">
+                           <span><i class="fa-solid fa-clock faq-ico-title"></i> ¿Puntualidad?</span>
+                           <i class="fa-solid fa-plus faq-icon"></i>
+                       </div>
+                       <div class="faq-answer-collapse">
+                           <p>Agradecemos tu puntualidad para dar inicio a cada momento especial.</p>
+                       </div>
+                   </div>
+
+                   <div class="faq-accordion-item mt-15" onclick="toggleFaq(this)">
+                       <div class="faq-question-bar">
+                           <span><i class="fa-solid fa-ban faq-ico-title"></i> ¿Bebidas alcohólicas?</span>
+                           <i class="fa-solid fa-plus faq-icon"></i>
+                       </div>
+                       <div class="faq-answer-collapse">
+                           <p>Será un evento sin bebidas alcohólicas.</p>
+                       </div>
+                   </div>
+               </div>
+           </section>
+
+           <!-- CONFIRMACIÓN DE ASISTENCIA -->
+           <section class="section-pad reveal text-center">
+               <h2 class="editorial-heading">CONFIRMACIÓN DE ASISTENCIA</h2>
+               <p class="title-sub-cursive">Esperamos contar con vos</p>
+               <p class="rsvp-limit-text mt-10">Confirmar hasta el 15 de diciembre de 2026</p>
+
+               <a href="https://wa.me/595981378517?text=¡Hola!%20Confirmo%20mi%20asistencia%20a%20la%20boda%20de%20Rebe%20y%20Alex%20💍" class="btn btn-editorial mt-25" target="_blank">
+                   <i class="fa-brands fa-whatsapp"></i> CONFIRMAR POR WHATSAPP
+               </a>
+           </section>
+
+       </div>
+
+       <!-- CIERRE Y FIRMA (BLOQUE LISO Y PINYON SCRIPT) -->
+       <div class="bloque-eucalipto-liso">
+           <section class="section-pad reveal text-center">
+               <div class="farewell-signature-spaced mt-10">
+                   <p class="farewell-with-love">Con amor,</p>
+                   <h2 class="farewell-couple-pinyon mt-15">Rebe & Alex</h2>
+               </div>
+           </section>
+
+           <footer class="editorial-footer">
+               <p>© GHISA DIGITAL · DESIGN STUDIO</p>
+           </footer>
+       </div>
+
+   </div>
+
+   <script src="script.js"></script>
+</body>
+</html>
